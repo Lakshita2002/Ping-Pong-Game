@@ -1,20 +1,15 @@
-# part 1
-# introduction and the basic window setup
-# part 2
-# game objects
-# part 3
-# moving the paddles
-# part 4
-# moving the ball
-# part 5
-# colliding with the paddles
-# part 6
-# scoring
-# part 7
-# sounds
+# part 1 basic window setup
+# part 2 game objects
+# part 3 moving the paddles
+# part 4 moving the ball
+# part 5 colliding with the paddles
+# part 6 scoring
+# part 7 sounds
 
 import turtle
 import os
+# for windows
+# import winsound
 
 window = turtle.Screen()
 window.title("Pong by Likun")
@@ -41,6 +36,7 @@ paddle_b = turtle.Turtle()
 paddle_b.speed(0)
 paddle_b.shape("square")
 paddle_b.color("white")
+# this creates a rectangular paddle
 paddle_b.shapesize(stretch_wid=5, stretch_len=1)
 paddle_b.penup()
 paddle_b.goto(+350, 0)
@@ -52,6 +48,7 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
+# setting up ball's speed
 ball.dx = 0.08
 ball.dy = -0.08
 
@@ -105,11 +102,17 @@ while True:
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
+        # os.system("afplay bounce.wav&") # for mac
+        # winsound.PlaySound("bounce.wav", windsound.SND_ASYNC) # for windows
+        # to play sound
         os.system("aplay bounce.wav&")
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+        # os.system("afplay bounce.wav&") # for mac
+        # winsound.PlaySound("bounce.wav", windsound.SND_ASYNC) # for windows
+        # we use "&" so as to avoid time lag while it collides
         os.system("aplay bounce.wav&")
 
     if ball.xcor() > 390:
@@ -117,6 +120,7 @@ while True:
         ball.dx *= -1
         score_a += 1
         pen.clear()
+        # imp to clear else digits overwrite 
         pen.write("Player A: {} Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
     if ball.xcor() < -390:
@@ -130,9 +134,13 @@ while True:
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_b.ycor() - 50):
         ball.setx(340)
         ball.dx *= -1
+        # os.system("afplay bounce.wav&") # for mac
+        # winsound.PlaySound("bounce.wav", windsound.SND_ASYNC) # for windows
         os.system("aplay bounce.wav&")
 
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() - 50):
         ball.setx(-340)
         ball.dx *= -1
+        # os.system("afplay bounce.wav&") # for mac
+        # winsound.PlaySound("bounce.wav", windsound.SND_ASYNC) # for windows
         os.system("aplay bounce.wav&")
